@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherCard from './components/weather';
 
@@ -48,11 +48,25 @@ const App = () => {
         city: res.name,
         condition: res.weather[0].main,
         country: res.sys.country
-      })
+      });
 
 
     });
   };
+
+  useEffect(() => {
+    data(query).then(res => {
+      setWeather({
+        temp: res.main.temp,
+        city: res.name,
+        condition: res.weather[0].main,
+        country: res.sys.country
+      });
+
+    });
+
+  }, []);
+
 
   return (
     <div className="App">
