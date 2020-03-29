@@ -4,8 +4,8 @@ import WeatherCard from './components/weather';
 
 
 const App = () => {
-
-  const [city, setCity] = useState('london,gb');
+  const [query, setQuery] = useState('london,gb');
+  const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [temp, setTemp] = useState('');
   const [condition, setCondition] = useState('');
@@ -26,7 +26,7 @@ const App = () => {
 
   const searchHandler = (e) => {
     e.preventDefault();
-    data().then(res =>{
+    data().then(res => {
       console.log(res.name);
       console.log(res.sys.country);
       console.log(res.main.feels_like);
@@ -34,7 +34,7 @@ const App = () => {
       setCountry(res.sys.country);
       setTemp(res.main.feels_like);
       setCondition(res.weather[0].main);
-      setCondition(res.name);
+      setCity(res.name);
 
     });
   };
@@ -50,7 +50,7 @@ const App = () => {
 
       <form action="">
         <input value={city} onChange={(e) => { setCity(e.target.value) }}></input>
-        <button onClick={e=>searchHandler(e)}>Search</button>
+        <button onClick={e => searchHandler(e)}>Search</button>
       </form>
     </div>
   );
