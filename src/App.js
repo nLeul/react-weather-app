@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import WeatherCard from './components/weather';
 
@@ -6,6 +6,9 @@ import WeatherCard from './components/weather';
 const App = () => {
 
   const [city, setCity] = useState('london,gb');
+  const [country, setCountry] = useState('');
+  const [temp, setTemp] = useState('');
+  const [condition, setCondition] = useState('');
   // setCity()
   //  const city = 'london';
 
@@ -20,22 +23,34 @@ const App = () => {
     const resJSON = await apiRes.json();
     return resJSON;
   };
-  // data().then(res =>{
-  //   console.log(res.name);
-  //   console.log(res.sys.country);
-  //   console.log(res.main.feels_like);
-  //   console.log(res.weather[0].main);
 
-  // });
+  const searchHandler = (e) => {
+    e.preventDefault();
+    data().then(res =>{
+      console.log(res.name);
+      console.log(res.sys.country);
+      console.log(res.main.feels_like);
+      console.log(res.weather[0].main);
+      setCountry(res.sys.country);
+      setTemp(res.main.feels_like);
+      setCondition(res.weather[0].main);
+      setCondition(res.name);
 
-  
+    });
+  };
+
   return (
     <div className="App">
-      <WeatherCard temp="35" condition="Rain" city="Newyork" country="US" />
-      <WeatherCard temp="40" condition="Rain" city="Paris" country="Fr" />
+      <WeatherCard
+        temp={temp}
+        condition={condition}
+        city={city}
+        country={country}
+      />
+
       <form action="">
-        <input value={city} onChange={(event) => { setCity(event.target.value) }}></input>
-        <button onClick={}>Search</button>
+        <input value={city} onChange={(e) => { setCity(e.target.value) }}></input>
+        <button onClick={e=>searchHandler(e)}>Search</button>
       </form>
     </div>
   );
