@@ -1,13 +1,14 @@
 import React from 'react';
+import Location from './Location';
+import Icon from './Icon';
+import Condition from './Condition';
 
-const WeatherCard = () => {
+const WeatherCard = props => {
     return (
         <div className="card">
-            <h1>New York</h1>
-            <h3>US</h3>
-            <img src="" alt="weather icon" />
-            <h1>30 °C </h1>
-            <h3>Cloudy</h3>
+            <Location city={props.city } country={props.country } />
+            <Icon icons="./img/rain-cloudy.png" />
+            <Condition condition="Clouds" temp={props.temp}/>
         </div>
     );
 }
